@@ -25,6 +25,14 @@ exports.createUser = async (req, res) => {
       });
     }
 
+    const existingUser = await userModel.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({
+        status: false,
+        message: 'Email sudah terdaftar, gunakan email lain'
+      });
+    }
+
     if (!password) {
       return res.status(400).json({
         status: false,
@@ -84,7 +92,6 @@ exports.createUser = async (req, res) => {
     });
   }
 };
-
 
 exports.getAllUser = async (req, res) => {
   try {
@@ -230,6 +237,14 @@ exports.updateUser = async (req, res) => {
       return res.status(404).json({
         status: false,
         message: 'User tidak ditemukan'
+      });
+    }
+
+    const existingUser = await userModel.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({
+        status: false,
+        message: 'Email sudah terdaftar, gunakan email lain'
       });
     }
 
