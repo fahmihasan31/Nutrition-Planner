@@ -18,6 +18,13 @@ exports.createUser = async (req, res) => {
       goal
     } = req.body;
 
+    if (!username || !email || !password || !age || !gender || !weight || !height || !activity_level || !goal) {
+      return res.status(400).json({
+        status: false,
+        message: 'Semua field harus diisi',
+      });
+    }
+
     if (!password) {
       return res.status(400).json({
         status: false,
@@ -73,7 +80,6 @@ exports.createUser = async (req, res) => {
     console.error('Error createUser:', error);
     return res.status(500).json({
       status: false,
-      message: 'Terjadi kesalahan server',
       error: error.message
     });
   }
@@ -95,10 +101,18 @@ exports.getAllUser = async (req, res) => {
         'goal'
       ]
     });
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        status: false,
+        message: 'User tidak ditemukan',
+      });
+    }
+
     return res.status(200).json({
       status: true,
-      data: users,
-      message: 'Data user ditampilkan semua'
+      message: 'Data user ditampilkan semua',
+      data: users
     })
   } catch (error) {
     return res.status(400).json({
@@ -136,14 +150,13 @@ exports.getUserById = async (req, res) => {
 
     return res.status(200).json({
       status: true,
-      data: user,
-      message: 'Data user berhasil ditemukan'
+      message: 'Data user berhasil ditemukan',
+      data: user
     });
   } catch (error) {
     console.error('Error getUserById:', error);
     return res.status(500).json({
       status: false,
-      message: 'Terjadi kesalahan server',
       error: error.message
     });
   }
@@ -185,20 +198,18 @@ exports.getUserbyKey = async (req, res) => {
 
     return res.status(200).json({
       status: true,
-      data: users,
-      message: 'Data user berhasil ditemukan'
+      message: 'Data user berhasil ditemukan',
+      data: users
     });
 
   } catch (error) {
     console.error('Error searchUser:', error);
     return res.status(500).json({
       status: false,
-      message: 'Terjadi kesalahan server',
       error: error.message
     });
   }
 };
-
 
 exports.updateUser = async (req, res) => {
   try {
@@ -267,7 +278,6 @@ exports.updateUser = async (req, res) => {
     console.error('Error updateUser:', error);
     return res.status(500).json({
       status: false,
-      message: 'Terjadi kesalahan server',
       error: error.message
     });
   }
@@ -297,7 +307,6 @@ exports.deleteUser = async (req, res) => {
     console.error('Error deleteUser:', error);
     return res.status(500).json({
       status: false,
-      message: 'Terjadi kesalahan server',
       error: error.message
     });
   }
@@ -344,7 +353,6 @@ exports.updatePassword = async (req, res) => {
     console.error('Error updatePassword:', error);
     return res.status(500).json({
       status: false,
-      message: 'Terjadi kesalahan server',
       error: error.message
     });
   }
