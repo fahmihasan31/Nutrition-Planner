@@ -2,33 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('menus', {
-      menu_id: {
+    await queryInterface.createTable('plans', {
+      plan_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name_menu: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'user_id'
+        }
+      },
+      name: {
         type: Sequelize.STRING
       },
-      category: {
-        type: Sequelize.ENUM('food', 'drink')
+      plan_start: {
+        type: Sequelize.DATE
       },
-      protein: {
-        type: Sequelize.FLOAT
+      plan_end: {
+        type: Sequelize.DATE
       },
-      carbs: {
-        type: Sequelize.FLOAT
-      },
-      calories: {
-        type: Sequelize.FLOAT
-      },
-      description: {
-        type: Sequelize.STRING
-      },
-      picture: {
-        type: Sequelize.STRING
+      status: {
+        type: Sequelize.ENUM('draft', 'ongoing', 'completed', 'cancelled'),
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('menus');
+    await queryInterface.dropTable('plans');
   }
 };
