@@ -18,13 +18,6 @@ exports.createUser = async (req, res) => {
       goal
     } = req.body;
 
-    if (!username || !email || !password || !age || !gender || !weight || !height || !activity_level || !goal) {
-      return res.status(400).json({
-        status: false,
-        message: 'Semua field harus diisi',
-      });
-    }
-
     const existingUser = await userModel.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({
@@ -240,12 +233,14 @@ exports.updateUser = async (req, res) => {
       });
     }
 
-    const existingUser = await userModel.findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(400).json({
-        status: false,
-        message: 'Email sudah terdaftar, gunakan email lain'
-      });
+    if (email && email !== user.email) {
+      const existingUser = await userModel.findOne({ where: { email } });
+      if (existingUser) {
+        return res.status(400).json({
+          status: false,
+          message: 'Email sudah terdaftar, gunakan email lain'
+        });
+      }
     }
 
     const validGender = ['male', 'female'];
