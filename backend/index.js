@@ -24,6 +24,10 @@ app.use('/users', userRoute);
 const menuRote = require('./routes/menu_route');
 app.use('/menus', menuRote);
 
+const planRoute = require('./routes/plan_route');
+app.use('/plans', planRoute);
+
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
