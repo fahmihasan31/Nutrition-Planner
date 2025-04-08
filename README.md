@@ -1,3 +1,5 @@
+# 🥗 Nutrition Planner
+
 **Nutrition Planner Backend** adalah backend API untuk aplikasi perencanaan gizi yang memberikan rekomendasi makanan berdasarkan rencana makan pengguna.
 
 ---
