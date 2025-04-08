@@ -26,7 +26,7 @@ Pastikan kamu sudah menginstal:
 1. **Clone repository ini ke komputer kamu:**
 
    ```bash
-   git clone https://github.com/username/nutrition-planner-backend.git
+   git clone https://github.com/fahmihasan31/Nutrition-Planner.git
    cd nutrition-planner-backend
    ```
 
