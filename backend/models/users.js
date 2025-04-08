@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
   class users extends Model {
     static associate(models) {
       users.hasMany(models.plans, { foreignKey: 'user_id', as: 'plans' });
+
+      users.hasMany(models.food_recommendation, {
+        foreignKey: 'user_id',
+        as: 'food_recommendations'
+      });
     }
   }
 
