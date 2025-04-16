@@ -25,14 +25,6 @@ exports.createUser = async (req, res) => {
       });
     }
 
-    const existingUser = await userModel.findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(400).json({
-        status: false,
-        message: 'Email sudah terdaftar, gunakan email lain'
-      });
-    }
-
     if (!password) {
       return res.status(400).json({
         status: false,
