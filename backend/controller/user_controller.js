@@ -18,11 +18,10 @@ exports.createUser = async (req, res) => {
       goal
     } = req.body;
 
-    const existingUser = await userModel.findOne({ where: { email } });
-    if (existingUser) {
+    if (!username || !email || !password || !age || !gender || !weight || !height || !activity_level || !goal) {
       return res.status(400).json({
         status: false,
-        message: 'Email sudah terdaftar, gunakan email lain'
+        message: 'Semua field harus diisi',
       });
     }
 
